@@ -40,14 +40,12 @@ class SharedSecretAuthenticator(object):
         # d={'request': 'SharedWhitelist'i, b: vb}
 
         # lets avoid logger error for missing request
-        # can be solved by adding filters to the logger too
-        # but without any of them it fails
+        # errors can be solved by adding filters to the logger to
         #     shared_secret_authenticator:
         #       level: DEBUG
         #       filters: [context]
- 
-        d={'request': ''}
-        logger.debug('Whitelisted user: %s', self.sharedWhitelist, extra=d)
+        #
+        logger.debug('Whitelisted user: %s', self.sharedWhitelist)
 
     @defer.inlineCallbacks
     def check_password(self, user_id, password):
