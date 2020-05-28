@@ -69,11 +69,16 @@ class SharedSecretAuthenticator(object):
         # this could be handled better ihmo, suggestions welcome
         # if not whitelisted deny shared secret based logins
 
+        user_is_ok = ''
+        is_ok_to_auth = ''
         for ok_users in self.sharedWhitelist:
+            logger.info('checking user %s for whitelisting against %s', user_id, ok_users)
             user_is_ok = re.match(user_id, ok_users)
             if user_is_ok:
-                is_ok_to_auth = 1; 
-                logger.info('user is whitelisted for login: %s', user_id)
+                logger.info('IS OK: %s', user_id)
+                is_ok_to_auth = user_id
+            else:
+                logger.info('IS NOT OK: %s', user_id)
 
         if not is_ok_to_auth:
             logger.info('user not allowed to login: %s', user_id)
