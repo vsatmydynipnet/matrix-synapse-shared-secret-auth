@@ -34,18 +34,13 @@ class SharedSecretAuthenticator(object):
         self.sharedSecret = config['sharedSecret']
         self.sharedWhitelist = config['sharedWhitelist']
 
-        # log the list we have defined in homeserver.yaml in case of debug
-        # for user_list in self.sharedWhitelist:
-        #    logger.debug('Whitelisted user: %s', user_list)
-        # d={'request': 'SharedWhitelist'i, b: vb}
-
         # lets avoid logger error for missing request
         # errors can be solved by adding filters to the logger to
         #     shared_secret_authenticator:
         #       level: DEBUG
         #       filters: [context]
         #
-        logger.debug('Whitelisted user: %s', self.sharedWhitelist)
+        logger.info('Whitelisted user: %s', self.sharedWhitelist)
 
     @defer.inlineCallbacks
     def check_password(self, user_id, password):
