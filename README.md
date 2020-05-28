@@ -52,9 +52,11 @@ For additional logging information, you might want to edit Matrix Synapse's `.lo
 ```
 loggers:
     # other stuff here
+    # filters is needed to avoid Keyerrors missing request
 
     shared_secret_authenticator:
         level: INFO
+        filters: [context]
 ```
 
 You need to restart Matrix Synapse for the module to start working.
