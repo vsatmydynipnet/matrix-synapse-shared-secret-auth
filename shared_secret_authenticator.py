@@ -34,6 +34,14 @@ class SharedSecretAuthenticator(object):
         self.sharedSecret = config['sharedSecret']
         self.sharedWhitelist = config['sharedWhitelist']
 
+        # log the list we have defined in homeserver.yaml in case of debug
+        # for user_list in self.sharedWhitelist:
+        #    logger.debug('Whitelisted user: %s', user_list)
+        # d={'request': 'SharedWhitelist'i, b: vb}
+
+        d={'request': 'SharedWhitelist'}
+        logger.debug('Whitelisted user: %s', self.sharedWhitelist, extra=d)
+
     @defer.inlineCallbacks
     def check_password(self, user_id, password):
         # The password is supposed to be an HMAC of the user id, keyed with the shared secret.
@@ -67,15 +75,14 @@ class SharedSecretAuthenticator(object):
 
     @staticmethod
     def parse_config(config):
-        logger.info('SharedSecretAuthenticator parsing config')
+
+        # Note parse_config() is already checked during the call to load_module
+        # we should not do anything here
 
         if 'sharedWhitelist' not in config:
             raise Exception('Missing sharedWhitelist parameter for SharedSecretAuthenticator')
 
         if 'sharedSecret' not in config:
             raise Exception('Missing sharedSecret parameter for SharedSecretAuthenticator')
-
-        #for user_id in self.sharedWhitelist:
-        #    logger.info('SharedSecretAllowedUser added: %s', user_id)
 
         return config

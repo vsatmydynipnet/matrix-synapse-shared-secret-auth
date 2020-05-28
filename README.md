@@ -39,6 +39,12 @@ password_providers:
   - module: "shared_secret_authenticator.SharedSecretAuthenticator"
     config:
       sharedSecret: "YOUR SHARED SECRET GOES HERE"
+      sharedWhitelist:
+         - user1
+         - user2
+         - user3
+         - user4
+
 ```
 
 For additional logging information, you might want to edit Matrix Synapse's `.log.config` file as well, adding a new logger:
